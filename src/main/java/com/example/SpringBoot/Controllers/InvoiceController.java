@@ -1,6 +1,7 @@
 package com.example.SpringBoot.Controllers;
 
 import com.example.SpringBoot.Models.Invoice;
+import com.example.SpringBoot.Models.Item;
 import com.example.SpringBoot.ResponseObject;
 import com.example.SpringBoot.Services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,28 +61,28 @@ public class InvoiceController {
         return new ResponseEntity<>(invoiceService.findAllInvoice(), HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<ResponseObject> findAllItems(@PathVariable Integer id){
-//        if(invoiceService.existInvoice(id)){
-//            List<Item> items = invoiceService.findAllItem(id);
-//            if(items.isEmpty()){
-//                return new ResponseEntity<>(new ResponseObject(
-//                        "invoice is empty", null),
-//                        HttpStatus.NOT_FOUND
-//                );
-//            }else{
-//                return new ResponseEntity<>(new ResponseObject(
-//                        "Successful", items),
-//                        HttpStatus.NOT_FOUND
-//                );
-//            }
-//        }else {
-//            return new ResponseEntity<>(new ResponseObject(
-//                    "Not found invoice", null),
-//                    HttpStatus.NOT_FOUND
-//            );
-//        }
-//    }
+    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ResponseObject> findAllItems(@PathVariable Integer id){
+        if(invoiceService.existInvoice(id)){
+            List<Item> items = invoiceService.findAllItem(id);
+            if(items.isEmpty()){
+                return new ResponseEntity<>(new ResponseObject(
+                        "invoice is empty", null),
+                        HttpStatus.NOT_FOUND
+                );
+            }else{
+                return new ResponseEntity<>(new ResponseObject(
+                        "Successful", items),
+                        HttpStatus.NOT_FOUND
+                );
+            }
+        }else {
+            return new ResponseEntity<>(new ResponseObject(
+                    "Not found invoice", null),
+                    HttpStatus.NOT_FOUND
+            );
+        }
+    }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<ResponseObject> deleteInvoice(@PathVariable Integer id){

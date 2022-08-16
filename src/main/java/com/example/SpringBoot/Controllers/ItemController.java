@@ -21,10 +21,10 @@ public class ItemController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> addItem(@RequestBody Item item){
         Item itemSave = itemService.addItem(item);
-        if(item != null){
+        if(itemSave != null){
             return new ResponseEntity<>(new ResponseObject("Add item!", itemSave), HttpStatus.OK);
         }else{
-            return new ResponseEntity<>(new ResponseObject("Invoice or Product not exist", itemSave),
+            return new ResponseEntity<>(new ResponseObject("Invoice or Product not exist", null),
                                         HttpStatus.NOT_FOUND);
         }
 
