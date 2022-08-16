@@ -1,6 +1,5 @@
 package com.example.SpringBoot.Repositories;
 
-import com.example.SpringBoot.Models.Customer;
 import com.example.SpringBoot.Models.Invoice;
 import com.example.SpringBoot.Models.Item;
 import org.springframework.data.jpa.repository.JpaRepository;

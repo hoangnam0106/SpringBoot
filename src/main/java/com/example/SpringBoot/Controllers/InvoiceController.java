@@ -1,8 +1,6 @@
 package com.example.SpringBoot.Controllers;
 
-import com.example.SpringBoot.Models.Customer;
 import com.example.SpringBoot.Models.Invoice;
-import com.example.SpringBoot.Models.Item;
 import com.example.SpringBoot.ResponseObject;
 import com.example.SpringBoot.Services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 @Controller

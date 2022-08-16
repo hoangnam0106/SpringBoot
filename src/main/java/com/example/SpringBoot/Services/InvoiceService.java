@@ -1,6 +1,5 @@
 package com.example.SpringBoot.Services;
 
-import com.example.SpringBoot.Models.Customer;
 import com.example.SpringBoot.Models.Invoice;
 import com.example.SpringBoot.Models.Item;
 import com.example.SpringBoot.Repositories.CustomerRepository;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InvoiceService {
