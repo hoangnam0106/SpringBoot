@@ -3,8 +3,10 @@ package com.example.SpringBoot.Models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+
 @Table(name = "invoice")
 public class Invoice {
     @Id
@@ -14,12 +16,24 @@ public class Invoice {
     private Integer customerId;
     private Date invoiceDate;
 
+    @ElementCollection
+    private List<Item> items;
+
     public Invoice() {
     }
 
     public Invoice(Integer customerId, Date invoiceDate) {
         this.customerId = customerId;
         this.invoiceDate = invoiceDate;
+
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public Integer getId() {

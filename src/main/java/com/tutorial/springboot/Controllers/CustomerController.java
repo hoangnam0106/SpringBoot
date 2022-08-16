@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -23,13 +24,13 @@ public class CustomerController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> save(@RequestBody Customer customer){
-        Customer customerSave = customerService.save(customer);
-        if(customerSave != null){
+        Customer customerSave = null;
+        try {
+            customerSave = customerService.save(customer);
             return new ResponseEntity<>(new ResponseObject("Save customer!", customerSave), HttpStatus.CREATED);
-        }else {
-            return new ResponseEntity<>(new ResponseObject("exist Id No", null), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseObject(e.getMessage(), null), HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
@@ -44,16 +45,17 @@ public class CustomerController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ResponseObject> find(@PathVariable Integer id){
-        Customer customer = customerService.findById(id);
-        if(customer != null){
+        Optional<Customer> customer = null;
+        try {
+            customer = customerService.findById(id);
             return new ResponseEntity<>(new ResponseObject(
                     "successful", customer),
                     HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>(new ResponseObject(
-                    "Not found customer id = " + id, null),
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseObject(e.getMessage(), null),
                     HttpStatus.OK);
         }
+
     }
 
     @RequestMapping(value = "/country", method = RequestMethod.GET)

@@ -16,10 +16,12 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public Customer save(Customer customer){
+    public Customer save(Customer customer) throws Exception{
         if(customerRepository.existsByIdNo(customer.getIdNo())){
-            return null;
-        }else {
+            throw new Exception("ID no existed");
+        } else if(customer.getPostalCode().length() > 6){
+            throw new Exception("postal code > 6");
+        } else {
             return customerRepository.save(customer);
         }
     }
@@ -53,8 +55,13 @@ public class CustomerService {
         }
     }
 
-    public Customer findById(Integer id){
-        return customerRepository.findById(id).orElse(null);
+    public Optional<Customer> findById(Integer id) throws Exception{
+        Optional<Customer> customer = customerRepository.findById(id);
+        if(customer != null){
+            throw new Exception("customer not exist");
+        }else {
+            return customer;
+        }
     }
 
     public List<Customer> findCustomers(String firstName, String city){

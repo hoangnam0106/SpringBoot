@@ -14,7 +14,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     public Customer findByIdNo(int id_no);
     @Query(value = "SELECT country_id FROM customer", nativeQuery = true)
     public List<Integer> findAllCountryID();
-    @Query(value = "SELECT * FROM customer WHERE first_name LIKE %:firstName% AND city LIKE %:city%",
+    @Query(value = "SELECT * FROM customer WHERE first_name LIKE (%:firstName% or :firstName is null )" +
+                    " AND city LIKE (%:city% or :city is null )",
             nativeQuery = true)
     List<Customer> findCustomers(@Param("firstName") String firstName,
                                 @Param("city") String city);

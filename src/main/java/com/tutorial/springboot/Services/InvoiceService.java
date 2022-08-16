@@ -3,7 +3,7 @@ package com.example.SpringBoot.Services;
 import com.example.SpringBoot.Models.Invoice;
 import com.example.SpringBoot.Models.Item;
 import com.example.SpringBoot.Repositories.CustomerRepository;
-import com.example.SpringBoot.Repositories.InvoiceRepository;
+import com.example.SpringBoot.Repositories.Invoice.InvoiceRepository;
 import com.example.SpringBoot.Repositories.ItemRepository;
 import com.example.SpringBoot.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;

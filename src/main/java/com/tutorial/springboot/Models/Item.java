@@ -1,9 +1,7 @@
 package com.example.SpringBoot.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -14,16 +12,19 @@ public class Item {
     private String item;
     private Integer productId;
     private int quantity;
+    @ElementCollection
+    private List<Item> items;
 
-    public Item() {
+    public Item(){
+
     }
-
     public Item(Integer invoiceId, String item, Integer productId, int quantity) {
         this.invoiceId = invoiceId;
         this.item = item;
         this.productId = productId;
         this.quantity = quantity;
     }
+
 
     public Integer getId() {
         return id;

@@ -2,6 +2,8 @@ package com.example.SpringBoot.Controllers;
 
 import com.example.SpringBoot.Models.Invoice;
 import com.example.SpringBoot.Models.Item;
+import com.example.SpringBoot.Repositories.Invoice.InvoiceRepoCustom;
+import com.example.SpringBoot.Repositories.Invoice.InvoiceRepoCustomImpl;
 import com.example.SpringBoot.ResponseObject;
 import com.example.SpringBoot.Services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.List;
 public class InvoiceController {
     @Autowired
     InvoiceService invoiceService;
+    @Autowired
+    InvoiceRepoCustom invoiceRepoCustom;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> addInvoice(@RequestBody Invoice invoice) throws ParseException {
@@ -57,8 +61,17 @@ public class InvoiceController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<Invoice>> findAllInvoice(){
-        return new ResponseEntity<>(invoiceService.findAllInvoice(), HttpStatus.OK);
+    public ResponseEntity<ResponseObject> findAllInvoice(){
+        ResponseObject responseObject = new ResponseObject();
+        try {
+            responseObject.setMessage("Successfully!");
+            responseObject.setData(invoiceRepoCustom.findAllInvoice());
+            return new ResponseEntity<>(responseObject, HttpStatus.OK);
+        } catch (Exception e) {
+            responseObject.setMessage(e.getMessage());
+            responseObject.setData(null);
+            return new ResponseEntity<>(responseObject, HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
@@ -84,6 +97,20 @@ public class InvoiceController {
         }
     }
 
+    @RequestMapping(value = "/{id}")
+    public ResponseEntity<ResponseObject> findDetailInvoiceById(@PathVariable Integer id){
+        ResponseObject responseObject = new ResponseObject();
+        try {
+            responseObject.setMessage("Successfully !");
+            responseObject.setData(invoiceRepoCustom.findDetailInvoiceById(id));
+
+            return new ResponseEntity<>(responseObject, HttpStatus.OK);
+        } catch (Exception e) {
+            responseObject.setMessage(e.getMessage());
+            responseObject.setData(null);
+            return new ResponseEntity<>(responseObject, HttpStatus.NOT_FOUND);
+        }
+    }
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<ResponseObject> deleteInvoice(@PathVariable Integer id){
         return invoiceService.deleteInvoice(id);
