@@ -1,8 +1,9 @@
-package com.example.SpringBoot.Controllers;
+package com.tutorial.springboot.Controllers;
 
-import com.example.SpringBoot.Models.Customer;
-import com.example.SpringBoot.ResponseObject;
-import com.example.SpringBoot.Services.CustomerService;
+import com.mysql.cj.log.Log;
+import com.tutorial.springboot.Models.Customer;
+import com.tutorial.springboot.ResponseObject;
+import com.tutorial.springboot.Services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/customer")
 public class CustomerController {
+
     @Autowired
     CustomerService customerService;
 

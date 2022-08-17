@@ -1,8 +1,8 @@
-package com.example.SpringBoot.Controllers;
+package com.tutorial.springboot.Controllers;
 
-import com.example.SpringBoot.Models.Item;
-import com.example.SpringBoot.ResponseObject;
-import com.example.SpringBoot.Services.ItemService;
+import com.tutorial.springboot.Models.Item;
+import com.tutorial.springboot.ResponseObject;
+import com.tutorial.springboot.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

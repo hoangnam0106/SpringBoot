@@ -1,6 +1,6 @@
-package com.example.SpringBoot.Repositories;
+package com.tutorial.springboot.Repositories;
 
-import com.example.SpringBoot.Models.Product;
+import com.tutorial.springboot.Models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

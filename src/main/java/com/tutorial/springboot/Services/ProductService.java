@@ -1,7 +1,7 @@
-package com.example.SpringBoot.Services;
+package com.tutorial.springboot.Services;
 
-import com.example.SpringBoot.Models.Product;
-import com.example.SpringBoot.Repositories.ProductRepository;
+import com.tutorial.springboot.Models.Product;
+import com.tutorial.springboot.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

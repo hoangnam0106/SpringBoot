@@ -1,6 +1,6 @@
-package com.example.SpringBoot.Repositories;
+package com.tutorial.springboot.Repositories;
 
-import com.example.SpringBoot.Models.Customer;
+import com.tutorial.springboot.Models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

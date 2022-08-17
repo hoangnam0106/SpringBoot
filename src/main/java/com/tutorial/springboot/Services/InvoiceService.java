@@ -1,11 +1,11 @@
-package com.example.SpringBoot.Services;
+package com.tutorial.springboot.Services;
 
-import com.example.SpringBoot.Models.Invoice;
-import com.example.SpringBoot.Models.Item;
-import com.example.SpringBoot.Repositories.CustomerRepository;
-import com.example.SpringBoot.Repositories.Invoice.InvoiceRepository;
-import com.example.SpringBoot.Repositories.ItemRepository;
-import com.example.SpringBoot.ResponseObject;
+import com.tutorial.springboot.Models.Invoice;
+import com.tutorial.springboot.Models.Item;
+import com.tutorial.springboot.Repositories.CustomerRepository;
+import com.tutorial.springboot.Repositories.Invoice.InvoiceRepository;
+import com.tutorial.springboot.Repositories.ItemRepository;
+import com.tutorial.springboot.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +55,4 @@ public class InvoiceService {
         }
     }
 
-    public List<Item> findAllItem(Integer id){
-        return invoiceRepository.findAllItem(id);
-    }
 }

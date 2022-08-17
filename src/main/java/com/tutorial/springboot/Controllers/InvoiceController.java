@@ -1,11 +1,10 @@
-package com.example.SpringBoot.Controllers;
+package com.tutorial.springboot.Controllers;
 
-import com.example.SpringBoot.Models.Invoice;
-import com.example.SpringBoot.Models.Item;
-import com.example.SpringBoot.Repositories.Invoice.InvoiceRepoCustom;
-import com.example.SpringBoot.Repositories.Invoice.InvoiceRepoCustomImpl;
-import com.example.SpringBoot.ResponseObject;
-import com.example.SpringBoot.Services.InvoiceService;
+import com.tutorial.springboot.Models.Invoice;
+import com.tutorial.springboot.Models.Item;
+import com.tutorial.springboot.Repositories.Invoice.InvoiceRepoCustom;
+import com.tutorial.springboot.ResponseObject;
+import com.tutorial.springboot.Services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,29 +70,6 @@ public class InvoiceController {
             responseObject.setMessage(e.getMessage());
             responseObject.setData(null);
             return new ResponseEntity<>(responseObject, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
-    public ResponseEntity<ResponseObject> findAllItems(@PathVariable Integer id){
-        if(invoiceService.existInvoice(id)){
-            List<Item> items = invoiceService.findAllItem(id);
-            if(items.isEmpty()){
-                return new ResponseEntity<>(new ResponseObject(
-                        "invoice is empty", null),
-                        HttpStatus.NOT_FOUND
-                );
-            }else{
-                return new ResponseEntity<>(new ResponseObject(
-                        "Successful", items),
-                        HttpStatus.NOT_FOUND
-                );
-            }
-        }else {
-            return new ResponseEntity<>(new ResponseObject(
-                    "Not found invoice", null),
-                    HttpStatus.NOT_FOUND
-            );
         }
     }
 

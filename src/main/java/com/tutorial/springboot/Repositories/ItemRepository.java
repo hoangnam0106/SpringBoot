@@ -1,6 +1,6 @@
-package com.example.SpringBoot.Repositories;
+package com.tutorial.springboot.Repositories;
 
-import com.example.SpringBoot.Models.Item;
+import com.tutorial.springboot.Models.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

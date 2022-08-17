@@ -1,9 +1,9 @@
-package com.example.SpringBoot.Services;
+package com.tutorial.springboot.Services;
 
-import com.example.SpringBoot.Models.Item;
-import com.example.SpringBoot.Repositories.Invoice.InvoiceRepository;
-import com.example.SpringBoot.Repositories.ItemRepository;
-import com.example.SpringBoot.Repositories.ProductRepository;
+import com.tutorial.springboot.Models.Item;
+import com.tutorial.springboot.Repositories.Invoice.InvoiceRepository;
+import com.tutorial.springboot.Repositories.ItemRepository;
+import com.tutorial.springboot.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

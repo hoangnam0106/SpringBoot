@@ -1,4 +1,4 @@
-package com.example.SpringBoot;
+package com.tutorial.springboot;
 
 import org.springframework.http.HttpStatus;
 
