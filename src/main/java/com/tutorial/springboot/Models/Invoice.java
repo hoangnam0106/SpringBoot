@@ -1,12 +1,23 @@
 package com.tutorial.springboot.Models;
 
 
+import com.tutorial.springboot.DTO.InvoiceDTO;
+import com.tutorial.springboot.DTO.ItemMapper;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 @Table(name = "invoice")
 public class Invoice {
     @Id
@@ -16,47 +27,7 @@ public class Invoice {
     private Integer customerId;
     private Date invoiceDate;
 
-    @ElementCollection
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<Item> items;
 
-    public Invoice() {
-    }
-
-    public Invoice(Integer customerId, Date invoiceDate) {
-        this.customerId = customerId;
-        this.invoiceDate = invoiceDate;
-
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Date getInvoiceDate() {
-        return invoiceDate;
-    }
-
-    public void setInvoiceDate(Date invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
 }

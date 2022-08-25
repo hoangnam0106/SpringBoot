@@ -1,5 +1,7 @@
 package com.tutorial.springboot.Controllers;
 
+import com.tutorial.springboot.DTO.InvoiceCreationDTO;
+import com.tutorial.springboot.DTO.InvoiceDTO;
 import com.tutorial.springboot.Models.Invoice;
 import com.tutorial.springboot.Models.Item;
 import com.tutorial.springboot.Repositories.Invoice.InvoiceRepoCustom;
@@ -26,16 +28,17 @@ public class InvoiceController {
     InvoiceRepoCustom invoiceRepoCustom;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<ResponseObject> addInvoice(@RequestBody Invoice invoice) throws ParseException {
-        Invoice invoiceSave = invoiceService.addInvoice(invoice);
-        if(invoiceSave != null){
+    public ResponseEntity<ResponseObject> addInvoice(@RequestBody InvoiceCreationDTO dto){
+        InvoiceDTO invoiceSave = null;
+        try {
+            invoiceSave = invoiceService.createInvoice(dto);
             return new ResponseEntity<>(new ResponseObject(
                     "Successful", invoiceSave),
                     HttpStatus.OK
             );
-        } else {
+        } catch (Exception e) {
             return new ResponseEntity<>(new ResponseObject(
-                    "customer not exist", null),
+                    e.getMessage(), null),
                     HttpStatus.NOT_FOUND
             );
         }
