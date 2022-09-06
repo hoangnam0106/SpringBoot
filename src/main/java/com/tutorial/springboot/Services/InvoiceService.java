@@ -1,14 +1,15 @@
 package com.tutorial.springboot.Services;
+import java.util.ArrayList;
 
-import com.tutorial.springboot.DTO.InvoiceCreationDTO;
-import com.tutorial.springboot.DTO.InvoiceDTO;
-import com.tutorial.springboot.DTO.InvoiceMapper;
+import com.tutorial.springboot.DTO.*;
 import com.tutorial.springboot.Models.Invoice;
 import com.tutorial.springboot.Models.Item;
+import com.tutorial.springboot.Models.Product;
 import com.tutorial.springboot.Repositories.CustomerRepository;
 import com.tutorial.springboot.Repositories.Invoice.InvoiceRepository;
 import com.tutorial.springboot.Repositories.ItemRepository;
 import com.tutorial.springboot.Repositories.ProductRepository;
+import com.tutorial.springboot.Response.BasicResponse;
 import com.tutorial.springboot.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,4 +66,73 @@ public class InvoiceService {
         }
     }
 
+    public ResponseEntity<BasicResponse> findInvoiceByCustomerId(Integer customerId){
+        List<Invoice> invoices = invoiceRepository.findInvoiceByCustomerId(customerId);
+        BasicResponse basicResponse = new BasicResponse();
+        basicResponse.setSuccess(false);
+        basicResponse.setErrorCode("");
+        basicResponse.setMessage("");
+        basicResponse.setResult(null);
+
+        if(!invoices.isEmpty()){
+            List<InvoiceResponseDTO> invoiceResponseDTOs = new ArrayList<>();
+            for (Invoice invoice: invoices) {
+                InvoiceResponseDTO invoiceResponseDTO = new InvoiceResponseDTO();
+                invoiceResponseDTO.setId(invoice.getId());
+                invoiceResponseDTO.setInvoiceDate(invoice.getInvoiceDate());
+                List<Item> items = itemRepository.findAllByInvoiceId(invoice.getId());
+                if(!items.isEmpty()){
+                    double total = 0L;
+                    for (Item item: items) {
+                        Product product = productRepository.findById(item.getProductId()).orElse(null);
+                        total += item.getQuantity() * product.getPrice();
+                    }
+                    invoiceResponseDTO.setTotal(total);
+                }else {
+                    invoiceResponseDTO.setTotal(0);
+                }
+
+                invoiceResponseDTOs.add(invoiceResponseDTO);
+            }
+
+            basicResponse.setSuccess(true);
+            basicResponse.setErrorCode("");
+            basicResponse.setMessage("");
+            basicResponse.setResult(invoiceResponseDTOs);
+
+            return new ResponseEntity<>(basicResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(basicResponse, HttpStatus.OK);
+    }
+
+    public ResponseEntity<BasicResponse> getAllItem(Integer invoiceId){
+        List<Item> items = itemRepository.findAllByInvoiceId(invoiceId);
+        BasicResponse basicResponse = new BasicResponse();
+        basicResponse.setSuccess(false);
+        basicResponse.setErrorCode("");
+        basicResponse.setResult(null);
+        if(!items.isEmpty()){
+            List<ItemDetailDTO> itemDetailDTOS = new ArrayList<>();
+            for (Item item:items) {
+                ItemDetailDTO itemDetailDTO = new ItemDetailDTO();
+                itemDetailDTO.setId(item.getId());
+                itemDetailDTO.setInvoiceId(item.getInvoiceId());
+                itemDetailDTO.setItem(item.getItem());
+                itemDetailDTO.setProductId(item.getProductId());
+                Product product = productRepository.findById(item.getProductId()).orElse(null);
+                itemDetailDTO.setPrice(product.getPrice());
+                itemDetailDTO.setVat(product.getVat());
+                itemDetailDTO.setQuantity(item.getQuantity());
+
+                itemDetailDTOS.add(itemDetailDTO);
+            }
+            basicResponse.setSuccess(true);
+            basicResponse.setMessage("OK");
+            basicResponse.setResult(itemDetailDTOS);
+
+            return new ResponseEntity<>(basicResponse,HttpStatus.OK);
+        }
+        basicResponse.setMessage("empty");
+        return new ResponseEntity<>(basicResponse,HttpStatus.OK);
+    }
 }

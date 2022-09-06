@@ -1,20 +1,19 @@
 package com.tutorial.springboot.Controllers;
 
 import com.tutorial.springboot.Models.Product;
+import com.tutorial.springboot.Response.BasicResponse;
 import com.tutorial.springboot.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/product")
+@CrossOrigin(value = "http://localhost:4200")
+@RequestMapping(value = "/api/v1/product")
 public class ProductController {
     @Autowired
     ProductService productService;
@@ -35,5 +34,15 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(@RequestBody Product product){
         Product productUpdate = productService.updateProduct(product);
         return new ResponseEntity<>(productUpdate, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get-all", method = RequestMethod.GET)
+    public ResponseEntity<BasicResponse> getAllProducts(){
+        return productService.getAllProducts();
+    }
+
+    @RequestMapping(value = "/get-products", method = RequestMethod.POST)
+    public ResponseEntity<BasicResponse> getProducts(@RequestBody List<Integer> productIds){
+        return productService.getProducts(productIds);
     }
 }

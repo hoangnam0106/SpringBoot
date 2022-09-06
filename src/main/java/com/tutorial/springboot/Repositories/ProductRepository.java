@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     public List<Product> _findByName(String productName);
 
     public boolean existsByName(String productName);
+
+    List<Product> getProductsByIdNotIn(List<Integer> productIds);
 }

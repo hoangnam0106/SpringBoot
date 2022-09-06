@@ -16,6 +16,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
                     nativeQuery = true)
     public String findCustomer(Integer id);
 
-
+    List<Invoice> findInvoiceByCustomerId(Integer customerId);
 
 }

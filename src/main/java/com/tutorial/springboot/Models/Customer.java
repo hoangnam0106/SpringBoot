@@ -18,18 +18,15 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(nullable = false)
     private String firstName;
 
     private String lastName;
     private String street;
     private String postalCode;
     private String city;
-    @Column(nullable = false)
-    private Integer countryId;
 
     @Column(nullable = false)
     private Integer idNo;
-
+    private Integer isActive;
 
 }

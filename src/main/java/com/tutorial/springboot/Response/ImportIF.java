@@ -1,13 +1,14 @@
 package com.tutorial.springboot.Response;
 
+import com.tutorial.springboot.DTO.CustomerDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class PageInfo {
-    private Integer pageIndex;
-    private Integer pageSize;
+@NoArgsConstructor
+public class ImportIF {
+    public int saveCount;
+    public int errorCount;
 }

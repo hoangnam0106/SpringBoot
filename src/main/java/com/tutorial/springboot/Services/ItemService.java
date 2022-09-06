@@ -4,7 +4,10 @@ import com.tutorial.springboot.Models.Item;
 import com.tutorial.springboot.Repositories.Invoice.InvoiceRepository;
 import com.tutorial.springboot.Repositories.ItemRepository;
 import com.tutorial.springboot.Repositories.ProductRepository;
+import com.tutorial.springboot.Response.BasicResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +31,22 @@ public class ItemService {
         }
     }
 
-    public List<Item> findItemByInvoiceId(Integer invoiceId){
-        return itemRepository.findAllByInvoiceId(invoiceId);
+
+    public ResponseEntity<BasicResponse> updateItem(Integer itemId, double quantity){
+        BasicResponse basicResponse = new BasicResponse();
+        basicResponse.setSuccess(false);
+        basicResponse.setErrorCode("");
+        basicResponse.setMessage("");
+        basicResponse.setResult(null);
+
+        if(itemRepository.existsById(itemId)){
+            itemRepository.updateItem(quantity,itemId);
+            basicResponse.setSuccess(true);
+            basicResponse.setMessage("update thành công");
+            return new ResponseEntity<>(basicResponse, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(basicResponse, HttpStatus.OK);
     }
 
 }

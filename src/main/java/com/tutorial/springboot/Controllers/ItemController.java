@@ -1,20 +1,19 @@
 package com.tutorial.springboot.Controllers;
 
 import com.tutorial.springboot.Models.Item;
+import com.tutorial.springboot.Response.BasicResponse;
 import com.tutorial.springboot.ResponseObject;
 import com.tutorial.springboot.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping(value = "/item")
+@CrossOrigin(value = "http://localhost:4200")
+@RequestMapping(value = "/api/v1/item")
 public class ItemController {
     @Autowired
     ItemService itemService;
@@ -31,8 +30,9 @@ public class ItemController {
 
     }
 
-    @RequestMapping(value = "/{invoiceId}")
-    public ResponseEntity<ResponseObject> findItemByInvoiceId(@PathVariable Integer invoiceId){
-        return new ResponseEntity<>(new ResponseObject("successfully", itemService.findItemByInvoiceId(invoiceId)),HttpStatus.OK);
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity<BasicResponse> updateItem(@RequestParam String itemId, @RequestParam String quantity){
+        return itemService.updateItem(Integer.parseInt(itemId),Double.parseDouble(quantity));
     }
 }
